@@ -312,29 +312,5 @@
 
 <div class="content" role="main">
 
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-    <span>{{ list?.improvements?.length ?? 0 }} app is running!</span>
-    <button (click)="onList($event)"> Load coins</button>
-
-  </div>
-
-  <table *ngIf="list != null">
-    <th>Crypto</th>
-    <th>Watchlist</th>
-    <th>Market Cap</th>
-    <th>Watchlist Improve</th>
-    <th>Watchlist Improve %</th>
-    <tr *ngFor="let crypto of list?.improvements" 
-      [ngClass]="{ 'top-performer': isTopPerformer(crypto) }" 
-      [routerLink]="['/graph', crypto.coin]">
-      <td>{{crypto.coin}}</td>
-      <td>{{crypto.watchlist}}</td>
-      <td>{{crypto.marketCap.toFixed(0)}}</td>
-      <td>{{crypto.watchlistImprove.toFixed(2)}}</td>
-      <td>{{crypto.watchlistImprovePercentage.toFixed(2)}}</td>
-    </tr>
-  </table>
 
 <router-outlet></router-outlet>

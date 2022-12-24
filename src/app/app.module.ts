@@ -9,11 +9,13 @@ import { ApiService } from './services/api.service';
 import { GraphPageComponent } from './graph-page/graph-page.component';
 
 import { NgChartsModule } from 'ng2-charts';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GraphPageComponent
+    GraphPageComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
