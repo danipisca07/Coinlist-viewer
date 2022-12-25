@@ -50,7 +50,7 @@ export class GraphPageComponent {
             borderColor: this.watchlistColor, pointStyle: 'line'
           },
           { 
-            yAxisID: "watchlistImprove", label: "Watchlist Improve", data: this.historyData!.map(item => item.watchlistImprove), 
+            yAxisID: "watchlistImprove%", label: "Watchlist Improve%", data: this.historyData!.map(item => item.watchlistImprovePercentage), 
             borderColor: this.watchlistImproveColor, pointStyle: 'line'
           },
           { 
@@ -82,19 +82,17 @@ export class GraphPageComponent {
                     pointStyle: 'circle',
                     fillStyle: dataset.borderColor?.toString(),
                     strokeStyle: dataset.borderColor?.toString(),
-                    index: i
+                    index: i,
+                    hidden: false
                   };
                 });
               },
             },
             onClick: (e, legendItem) => {
+              //To show/hide datasets on click in the legend
               const index = legendItem.index;
               const meta = this.chart!.getDatasetMeta(index!);
-
-              // Toggle the visibility of the dataset
-              meta.hidden = meta.hidden === null ? true : !meta.hidden;
-
-              // Update the chart
+              meta.hidden = !meta.hidden;
               this.chart!.update();
             }
           }
