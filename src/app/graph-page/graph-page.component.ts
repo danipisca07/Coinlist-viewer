@@ -16,6 +16,7 @@ export class GraphPageComponent {
 
   priceColor = 'rgb(66, 245, 84)';
   watchlistColor = 'rgb(245, 72, 66)';
+  watchlistImproveColor = 'rgb(207, 52, 235)';
   rankColor = 'rgb(38, 0, 255)';
 
   tickFormat = new Intl.NumberFormat('en-US', {
@@ -49,6 +50,10 @@ export class GraphPageComponent {
             borderColor: this.watchlistColor, pointStyle: 'line'
           },
           { 
+            yAxisID: "watchlistImprove", label: "Watchlist Improve", data: this.historyData!.map(item => item.watchlistImprove), 
+            borderColor: this.watchlistImproveColor, pointStyle: 'line'
+          },
+          { 
             yAxisID: "priceBtc", label: "Price(BTC)", data: this.historyData!.map(item => item.btcPrice),
             borderColor: this.priceColor, pointStyle: 'line'
           },
@@ -61,6 +66,7 @@ export class GraphPageComponent {
       options: {
         scales: {
           watchlist: { position: 'left', ticks: { color: this.watchlistColor } },
+          watchlistImprove: { position: 'left', ticks: { color: this.watchlistImproveColor } },
           priceBtc: { position: 'right', ticks: { color: this.priceColor, callback: (value) => this.tickFormat.format(Number(value)) } },
           rank: { position: 'right', reverse: true, ticks: { color: this.rankColor, stepSize: 1, callback: (value) => Math.round(Number(value)) } }
         },
@@ -76,9 +82,20 @@ export class GraphPageComponent {
                     pointStyle: 'circle',
                     fillStyle: dataset.borderColor?.toString(),
                     strokeStyle: dataset.borderColor?.toString(),
+                    index: i
                   };
                 });
               },
+            },
+            onClick: (e, legendItem) => {
+              const index = legendItem.index;
+              const meta = this.chart!.getDatasetMeta(index!);
+
+              // Toggle the visibility of the dataset
+              meta.hidden = meta.hidden === null ? true : !meta.hidden;
+
+              // Update the chart
+              this.chart!.update();
             }
           }
         }
