@@ -16,7 +16,7 @@
       [ngClass]="{ 'top-performer': isTopPerformer(crypto) }" 
       [routerLink]="['/graph', crypto.coin]">
       <td>{{crypto.rank}}</td>
-      <td>{{crypto.coin}}</td>
+      <td>{{crypto.displayName || crypto.coin}}</td>
       <td>{{crypto.watchlist}}</td>
       <td>{{crypto.marketCap.toFixed(0)}}</td>
       <td>{{crypto.watchlistImprove.toFixed(2)}}</td>

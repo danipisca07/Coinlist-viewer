@@ -30,6 +30,8 @@ export class GraphPageComponent {
   ngOnInit() {
     this.cryptoName = this.route.snapshot.paramMap.get('name') || "";
     this.apiService.getHistory(this.cryptoName).subscribe(priceHistory => {
+      if(priceHistory?.length > 0)
+        this.cryptoName = priceHistory[priceHistory.length-1].displayName + " | " + this.cryptoName
       this.historyData = priceHistory;
        this.createChart();
     });
@@ -60,7 +62,7 @@ export class GraphPageComponent {
         scales: {
           watchlist: { position: 'left', ticks: { color: this.watchlistColor } },
           priceBtc: { position: 'right', ticks: { color: this.priceColor, callback: (value) => this.tickFormat.format(Number(value)) } },
-          rank: { position: 'right', ticks: { color: this.rankColor } }
+          rank: { position: 'right', reverse: true, ticks: { color: this.rankColor, stepSize: 1, callback: (value) => Math.round(Number(value)) } }
         },
         elements: { point: {radius: 1}},
         plugins: {
