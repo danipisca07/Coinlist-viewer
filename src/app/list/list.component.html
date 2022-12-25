@@ -5,7 +5,8 @@
 
   </div>
 
-  <table *ngIf="list != null">
+  <table *ngIf="list != null" border="1">
+    <th>Rank</th>
     <th>Crypto</th>
     <th>Watchlist</th>
     <th>Market Cap</th>
@@ -14,6 +15,7 @@
     <tr *ngFor="let crypto of list?.improvements" 
       [ngClass]="{ 'top-performer': isTopPerformer(crypto) }" 
       [routerLink]="['/graph', crypto.coin]">
+      <td>{{crypto.rank}}</td>
       <td>{{crypto.coin}}</td>
       <td>{{crypto.watchlist}}</td>
       <td>{{crypto.marketCap.toFixed(0)}}</td>
